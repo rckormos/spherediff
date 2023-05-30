@@ -48,7 +48,7 @@ def newton_raphson(n, u_phi, var, hemisphere=False):
     phi_opt : np.array [N]
         Array of angles phi for which the CDF is u_phi.
     """
-    phi = angle_mean(n, var) 
+    phi = angle_mean(n, var)
     phi[var == 0.] = 0.
     counter, d_phi = 0, np.ones_like(phi)
     idxs = np.logical_and(np.abs(d_phi) > 1e-14, var > 0.)
@@ -60,6 +60,6 @@ def newton_raphson(n, u_phi, var, hemisphere=False):
             cdf = 1. + cdf - cdf_rev
         d_phi = (cdf - u_phi[idxs]) / pdf
         phi[idxs] = phi[idxs] - d_phi
-        idxs[idxs] = np.abs(d_phi) > 1e-14
+        idxs[idxs] = np.abs(d_phi) > 1e-12
         counter += 1
     return phi

@@ -68,3 +68,52 @@ array([[ 0.92723597,  0.02336567,  0.37374791],
        [ 0.2418101 , -0.41127436, -0.87885225],
        [-0.11192408, -0.71437847, -0.69075061]])
 ```
+
+The user may also compute the score function of the isotropic Gaussian 
+distribution on the unit n-sphere, defined as the Riemannian gradient 
+of the logarithm of the probability density. This may be done using the 
+`score_spherical_kernel` function, which may be imported as follows:
+
+```
+from spherediff.score import score_spherical_kernel
+```
+
+This function takes four arguments. The first is n, the dimension of the 
+space in which the n-sphere is embedded. The second is a numpy array of 
+shape (N, n) consisting of the n-dimensional unit vectors at which to 
+evaluate the score function. The third is a numpy array of shape (N, n) 
+consisting of the n-dimensional unit vectors at which to center the 
+distributions of which the corresponding score functions will be evaluated. 
+The fourth is a numpy array of shape (N,) consisting of the scalar variance 
+parameters of each distribution.
+
+Example output from `score_spherical_kernel` is:
+
+```
+>>> import numpy as np
+>>> from spherediff.sample import sample_spherical_kernel
+>>> from spherediff.score import score_spherical_kernel
+>>> np.random.seed(42)
+>>> means = np.random.randn(5, 3)
+>>> means /= np.linalg.norm(means, axis=1, keepdims=True)
+>>> means
+array([[ 0.60000205, -0.1670153 ,  0.78237039],
+       [ 0.97717133, -0.15023209, -0.15022156],
+       [ 0.86889694,  0.42224942, -0.25830898],
+       [ 0.63675162, -0.5438697 , -0.54658314],
+       [ 0.09351637, -0.73946664, -0.66666616]])
+>>> vars = 0.1 * np.ones(5)
+>>> x = sample_spherical_kernel(3, means, vars)
+>>> x
+array([[ 0.30027556, -0.53104481,  0.79235472],
+       [ 0.91657116, -0.39288942,  0.07439905],
+       [ 0.81325411,  0.41495422, -0.40795926],
+       [ 0.39907791, -0.44171124, -0.80350981],
+       [ 0.16422958, -0.76019121, -0.62860001]])
+>>> score_spherical_kernel(3, x, means, vars)
+array([[ 0.45383257, -1.4484151 , -0.34370955],
+       [ 2.57268711,  3.50638512, -2.19627206],
+       [ 0.33420178,  5.16225326, -0.64669865],
+       [ 2.62797084,  2.20685896, -1.97070763],
+       [-3.68698876, -0.78777185, -3.71349795]])
+```

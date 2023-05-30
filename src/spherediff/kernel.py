@@ -160,7 +160,7 @@ def angle_mean(n, var):
             converged = False
         # update coeffs_l and coeffs_lp1 
         coeffs_lp2 = np.empty(len(coeffs_lp1) + 1)
-        prefactor = 2. ** ((n + 1) // 2)
+        prefactor = 2. ** ((n + 1) % 2)
         factor1 = (2 * l + n) / (2 * l + 4)
         factor2 = (l + n - 2) / (l + 2)
         coeffs_lp2[0] = factor1 * coeffs_lp1[1] - factor2 * coeffs_l[0]

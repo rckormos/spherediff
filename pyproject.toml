@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spherediff"
-version = "1.1.0"
+version = "1.2.0"
 description = "Sample from the diffusion kernel on any n-sphere"
 readme = "README.md"
 authors = [{name = "Rian Kormos", email = "Rian.Kormos@ucsf.edu"}]
