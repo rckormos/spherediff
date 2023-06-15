@@ -33,7 +33,7 @@ def score_spherical_kernel(n, x, mean, var, hemisphere=False):
     rejections /= -np.linalg.norm(rejections, axis=1, keepdims=True)
     ker, ker_deriv = raw_kernel(n, var, phi)
     if hemisphere:
-        ker_rev, ker_deriv_rev = kernel(n, var, np.pi - phi)
+        ker_rev, ker_deriv_rev = raw_kernel(n, var, np.pi - phi)
         ker += ker_rev
         ker_deriv += ker_deriv_rev
     return rejections * ker_deriv / ker

@@ -28,7 +28,7 @@ def sample_spherical_kernel(n, mean, var, hemisphere=False):
 
 @nb.jit(nopython=True, cache=True)
 def newton_raphson(n, u_phi, var, hemisphere=False):
-    """Invert F_angle - u_phi by Newton-Raphson iteration.
+    """Invert CDF - u_phi by Newton-Raphson iteration.
 
     Parameters
     ----------
